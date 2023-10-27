@@ -5,8 +5,10 @@ using UnityEngine;
 public class MoveForward : MonoBehaviour
 {
     [SerializeField] float speed;
-    private bool hit;
+    [SerializeField] float damage;
+    
     private float lifeTime;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -34,5 +36,14 @@ public class MoveForward : MonoBehaviour
     void Deactivate()
     {
         gameObject.SetActive(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            collision.GetComponent<Health>().TakeDamage(damage);
+            Deactivate();  
+        }
     }
 }

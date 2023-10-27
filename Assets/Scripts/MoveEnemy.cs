@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.Metadata;
 
 public class MoveEnemy : MonoBehaviour
 {
@@ -33,9 +34,14 @@ public class MoveEnemy : MonoBehaviour
         if (currentTargetIndex >= targetPositions.Count)
         {
             Debug.Log("All positions reached.");
-            
-            return ;
-        }
+
+            foreach (GameObject enemy in enemys)
+            {
+                enemy.GetComponent<BoxCollider2D>().enabled = true;
+            }
+
+            return;
+            }
 
 
         if (countStage == currentTargetIndex)
@@ -93,7 +99,7 @@ public class MoveEnemy : MonoBehaviour
 
     IEnumerator MoveEnemiesToNextPositionCoroutine()
     {
-        yield return new WaitForSeconds(3.0f); // Wait for 3 seconds before moving to the next position
+        yield return new WaitForSeconds(2.0f); // Wait for 3 seconds before moving to the next position
         MoveEnemiesToNextPosition();
     }
 }
